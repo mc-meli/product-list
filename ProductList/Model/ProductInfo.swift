@@ -38,3 +38,7 @@ extension ProductInfo: Decodable {
         return try JSONDecoder().decode(ProductInfo.self, from: jsonData)
     }
 }
+
+extension ProductInfo: Identifiable {
+    
+}
