@@ -18,6 +18,8 @@ struct ProductDetailView: View {
                     ProductImageView(withURL: product.thumbnail.absoluteString)
                         .frame(width: 80)
                     VStack(alignment: .leading, spacing: 10) {
+                        Text(product.title)
+                            .font(.headline)
                         Text("Condición: \(product.displayCondition)")
                         Text("Precio: \(product.displayPrice)")
                     }
@@ -37,7 +39,7 @@ struct ProductDetailView: View {
                 
                 Spacer()
             }
-            .navigationTitle(product.title)
+            .navigationTitle("Detalle del producto")
     }
 }
 

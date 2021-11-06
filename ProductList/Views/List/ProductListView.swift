@@ -8,17 +8,17 @@
 import SwiftUI
 
 struct ProductListView: View {
-    var searchResults: ProductSearchResult?
+    var searchResults: ProductSearchResult!
     
     var body: some View {
-        List(searchResults?.products ?? []) { product in
+        List(searchResults.products) { product in
             NavigationLink {
                 ProductDetailView(product: product)
             } label: {
                 ProductRowView(product: product)
             }
         }
-        .navigationTitle("Productos")
+        .navigationTitle(searchResults.query)
     }
 }
 

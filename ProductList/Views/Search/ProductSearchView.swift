@@ -38,7 +38,7 @@ struct ProductSearchView: View {
                             productListService.searchProducts(text: self.searchText) { result in
                                 switch result {
                                 case .success(let result):
-                                    self.searchResult = result
+                                    searchResult = result
                                     readyToShowList = true
                                 case .failure(let error):
                                     lastSearchError = error
