@@ -27,6 +27,6 @@ struct ProductImageView: View {
 
 struct ProductImageView_Previews: PreviewProvider {
     static var previews: some View {
-        ProductImageView(withURL: "http://http2.mlstatic.com/D_776681-MLU47932898328_102021-O.jpg")
+        ProductImageView(withURL: PreviewSampleData.thumbnailURLString)
     }
 }

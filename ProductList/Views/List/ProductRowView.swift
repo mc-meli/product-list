@@ -30,19 +30,9 @@ struct ProductRowView: View {
     }
 }
 
-let previewProductInfo = ProductInfo(
-    id: "MLU602962743",
-    title: "Moto G6 Play (sin Tapa Trasera) Libre Oferta!!!",
-    price: 1999,
-    currency: "UYU",
-    condition: "used",
-    permalink: URL(string: "https://articulo.mercadolibre.com.uy/MLU-602962743-moto-g6-play-sin-tapa-trasera-libre-oferta-_JM")!,
-    thumbnail: URL(string: "http://http2.mlstatic.com/D_776681-MLU47932898328_102021-O.jpg")!
-)
-
 struct ProductRowView_Previews: PreviewProvider {
     static var previews: some View {
-        ProductRowView(product: previewProductInfo)
+        ProductRowView(product: PreviewSampleData.productInfo)
             .previewLayout(.fixed(width: 300, height: 70))
     }
 }
