@@ -11,16 +11,14 @@ struct ProductListView: View {
     var products: [ProductInfo]
     
     var body: some View {
-        NavigationView {
-            List(products) { product in
-                NavigationLink {
-                    ProductDetailView(product: product)
-                } label: {
-                    ProductRowView(product: product)
-                }
+        List(products) { product in
+            NavigationLink {
+                ProductDetailView(product: product)
+            } label: {
+                ProductRowView(product: product)
             }
-            .navigationTitle("Productos")
         }
+        .navigationTitle("Productos")
     }
 }
 
