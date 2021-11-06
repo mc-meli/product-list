@@ -21,22 +21,46 @@ class ProductListUITests: XCTestCase {
     override func tearDownWithError() throws {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
     }
-
-    func testExample() throws {
-        // UI tests must launch the application that they test.
+    
+    func testEmptySearchString() throws {
         let app = XCUIApplication()
         app.launch()
-
-        // Use recording to get started writing UI tests.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
+        app.buttons["Buscar"].tap()
+        let query = app.descendants(matching: .staticText).matching(identifier: "Ingrese el texto a buscar")
+        let hasErrorText = query.count > 0
+        XCTAssertTrue(hasErrorText)
+    }
+    
+    func testiPhone13Search() throws {
+        let app = XCUIApplication()
+        app.launch()
+        app.textFields["Ingrese su búsqueda"].tap()
+        app.textFields["Ingrese su búsqueda"].typeText("iPhone 13")
+        app.buttons["Buscar"].tap()
+        
+        Thread.sleep(forTimeInterval: 1)
+        XCTAssertTrue(app.tables.element(boundBy: 0).cells.count > 0)
+        
+        let firstCellStaticTexts = app.tables.element(boundBy: 0).cells.element(boundBy: 0).staticTexts
+        var containsIPhoneText = false
+        for index in 0..<firstCellStaticTexts.count {
+            let text = firstCellStaticTexts.element(boundBy: index).label
+            containsIPhoneText = text.lowercased().contains("iphone")
+            if containsIPhoneText { break }
+        }
+        XCTAssertTrue(containsIPhoneText)
     }
 
-    func testLaunchPerformance() throws {
-        if #available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 7.0, *) {
-            // This measures how long it takes to launch your application.
-            measure(metrics: [XCTApplicationLaunchMetric()]) {
-                XCUIApplication().launch()
-            }
-        }
+    func testNonExistingProductSearch() throws {
+        let app = XCUIApplication()
+        app.launch()
+        app.textFields["Ingrese su búsqueda"].tap()
+        app.textFields["Ingrese su búsqueda"].typeText("aaa#$aaa")
+        app.buttons["Buscar"].tap()
+        
+        Thread.sleep(forTimeInterval: 1)
+        let query = app.descendants(matching: .staticText).matching(identifier: "No se encontraron productos")
+        let hasNoProductsText = query.count > 0
+        XCTAssertTrue(hasNoProductsText)
     }
 }
