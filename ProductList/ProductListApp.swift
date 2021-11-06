@@ -11,7 +11,7 @@ import SwiftUI
 struct ProductListApp: App {
     var body: some Scene {
         WindowGroup {
-            ProductSearchView()
+            ProductSearchView(productListService: MercadoLibreProductListService())
         }
     }
 }

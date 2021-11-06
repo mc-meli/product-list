@@ -10,6 +10,10 @@ import SwiftUI
 struct ProductSearchView: View {
     @State private var searchText = ""
     @State private var readyToShowList = false
+    @State private var searching = false
+    @State private var products: [ProductInfo] = []
+    
+    let productListService: ProductListServiceProtocol
     
     var body: some View {
         NavigationView {
@@ -21,14 +25,21 @@ struct ProductSearchView: View {
                     .textFieldStyle(.roundedBorder)
                     .padding(.horizontal, 10)
                 
-                NavigationLink(destination: ProductListView(products: PreviewSampleData.products), isActive: $readyToShowList) {
-                    Button {
-                        // TODO: start the search!
-                        print("Button tapped")
-                        
-                        readyToShowList = true
-                    } label: {
-                        Text("Buscar")
+                if searching {
+                    ProgressView("Buscando...")
+                }
+                else {
+                    NavigationLink(destination: ProductListView(products: self.products), isActive: $readyToShowList) {
+                        Button {
+                            self.searching = true
+                            productListService.searchProducts(text: self.searchText) { products in
+                                self.products = products
+                                self.searching = false
+                                readyToShowList = true
+                            }
+                        } label: {
+                            Text("Buscar")
+                        }
                     }
                 }
                 
@@ -40,6 +51,6 @@ struct ProductSearchView: View {
 
 struct ProductSearchView_Previews: PreviewProvider {
     static var previews: some View {
-        ProductSearchView()
+        ProductSearchView(productListService: MercadoLibreProductListService())
     }
 }
