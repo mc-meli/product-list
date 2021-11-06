@@ -11,6 +11,7 @@ struct ProductSearchView: View {
     @State private var searchText = ""
     @State private var readyToShowList = false
     @State private var searching = false
+    @State private var lastSearchError: Error? = nil
     @State private var searchResult: ProductSearchResult? = nil
     
     let productListService: ProductListServiceProtocol
@@ -27,20 +28,20 @@ struct ProductSearchView: View {
                 
                 if searching {
                     ProgressView("Buscando...")
+                        .padding()
                 }
                 else {
-                    // TODO: pass the search results to the ProductListView
-                    NavigationLink(destination: ProductListView(products: self.searchResult?.products ?? []), isActive: $readyToShowList) {
+                    NavigationLink(destination: ProductListView(searchResults: self.searchResult), isActive: $readyToShowList) {
                         Button {
-                            self.searching = true
+                            searching = true
+                            lastSearchError = nil
                             productListService.searchProducts(text: self.searchText) { result in
                                 switch result {
                                 case .success(let result):
                                     self.searchResult = result
                                     readyToShowList = true
                                 case .failure(let error):
-                                    // TODO: handle error
-                                    print(error)
+                                    lastSearchError = error
                                 }
                                 self.searching = false
 
@@ -49,6 +50,14 @@ struct ProductSearchView: View {
                             Text("Buscar")
                         }
                     }
+                    .padding()
+                }
+                
+                if lastSearchError != nil {
+                    Text("Se produjo un error en la búsqueda, intente nuevamente más tarde")
+                        .font(.body)
+                        .foregroundColor(.red)
+                        .padding()
                 }
                 
                 Spacer()

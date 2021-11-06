@@ -8,10 +8,10 @@
 import SwiftUI
 
 struct ProductListView: View {
-    var products: [ProductInfo]
+    var searchResults: ProductSearchResult?
     
     var body: some View {
-        List(products) { product in
+        List(searchResults?.products ?? []) { product in
             NavigationLink {
                 ProductDetailView(product: product)
             } label: {
@@ -24,6 +24,6 @@ struct ProductListView: View {
 
 struct ProductListView_Previews: PreviewProvider {
     static var previews: some View {
-        ProductListView(products: PreviewSampleData.products)
+        ProductListView(searchResults: PreviewSampleData.searchResults)
     }
 }
