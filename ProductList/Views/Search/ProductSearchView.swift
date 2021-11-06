@@ -14,7 +14,7 @@ struct ProductSearchView: View {
     @State private var searchText = ""
     @State private var readyToShowList = false
     @State private var searching = false
-    @State private var lastSearchError: Error? = nil
+    @State private var errorMessage: String? = nil
     @State private var searchResult: ProductSearchResult? = nil
     
     let productListService: ProductListServiceProtocol
@@ -36,15 +36,21 @@ struct ProductSearchView: View {
                 else {
                     NavigationLink(destination: ProductListView(searchResults: self.searchResult), isActive: $readyToShowList) {
                         Button {
+                            guard !searchText.isEmpty else {
+                                errorMessage = "Ingrese el texto a buscar"
+                                return
+                            }
+                            
                             searching = true
-                            lastSearchError = nil
+                            errorMessage = nil
                             productListService.searchProducts(text: self.searchText) { result in
                                 switch result {
                                 case .success(let result):
                                     searchResult = result
                                     readyToShowList = true
                                 case .failure(let error):
-                                    lastSearchError = error
+                                    errorMessage = "Se produjo un error en la búsqueda, intente nuevamente más tarde"
+                                    print(error)
                                 }
                                 self.searching = false
 
@@ -56,8 +62,8 @@ struct ProductSearchView: View {
                     .padding()
                 }
                 
-                if lastSearchError != nil {
-                    Text("Se produjo un error en la búsqueda, intente nuevamente más tarde")
+                if let errorMessage = errorMessage {
+                    Text(errorMessage)
                         .font(.body)
                         .foregroundColor(.red)
                         .padding()

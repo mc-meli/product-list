@@ -9,6 +9,7 @@ import Foundation
 
 enum MercadoLibreProductListServiceError: Error {
     case couldNotCreateURL
+    case httpStatusError
     case emptyResponse
     case couldNotGetJSONFromResponse
     case couldNotCreateProductsInfoFromResponse
@@ -35,6 +36,12 @@ class MercadoLibreProductListService: ProductListServiceProtocol {
                 return
             }
             
+            guard let response = response as? HTTPURLResponse, (200..<300).contains(response.statusCode) else {
+                completion(.failure(MercadoLibreProductListServiceError.httpStatusError))
+                return
+            }
+
+            
             guard let data = data else {
                 completion(.failure(MercadoLibreProductListServiceError.emptyResponse))
                 return
@@ -45,16 +52,8 @@ class MercadoLibreProductListService: ProductListServiceProtocol {
                 return
             }
             
-            var searchResult: ProductSearchResult? = nil
-            do {
-                try searchResult = ProductSearchResult.fromJSONString(json)
-            }
-            catch {
-                completion(.failure(MercadoLibreProductListServiceError.couldNotCreateProductsInfoFromResponse))
-                return
-            }
-            
-            completion(.success(searchResult!))
+            let searchResult = try? ProductSearchResult.fromJSONString(json)
+            completion(.success(searchResult ?? ProductSearchResult(query: text, products: [])))
         }
         task.resume()
     }
