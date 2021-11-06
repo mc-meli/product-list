@@ -11,7 +11,7 @@ struct ProductSearchView: View {
     @State private var searchText = ""
     @State private var readyToShowList = false
     @State private var searching = false
-    @State private var products: [ProductInfo] = []
+    @State private var searchResult: ProductSearchResult? = nil
     
     let productListService: ProductListServiceProtocol
     
@@ -29,13 +29,21 @@ struct ProductSearchView: View {
                     ProgressView("Buscando...")
                 }
                 else {
-                    NavigationLink(destination: ProductListView(products: self.products), isActive: $readyToShowList) {
+                    // TODO: pass the search results to the ProductListView
+                    NavigationLink(destination: ProductListView(products: self.searchResult?.products ?? []), isActive: $readyToShowList) {
                         Button {
                             self.searching = true
-                            productListService.searchProducts(text: self.searchText) { products in
-                                self.products = products
+                            productListService.searchProducts(text: self.searchText) { result in
+                                switch result {
+                                case .success(let result):
+                                    self.searchResult = result
+                                    readyToShowList = true
+                                case .failure(let error):
+                                    // TODO: handle error
+                                    print(error)
+                                }
                                 self.searching = false
-                                readyToShowList = true
+
                             }
                         } label: {
                             Text("Buscar")

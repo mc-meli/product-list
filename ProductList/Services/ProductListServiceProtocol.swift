@@ -9,6 +9,6 @@ import Foundation
 
 protocol ProductListServiceProtocol {
     
-    func searchProducts(text: String, completion: ([ProductInfo]) -> ())
+    func searchProducts(text: String, completion: @escaping (Result<ProductSearchResult, Error>) -> ())
     
 }
