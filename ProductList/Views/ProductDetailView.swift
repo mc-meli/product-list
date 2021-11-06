@@ -16,7 +16,7 @@ struct ProductDetailView: View {
     var body: some View {
             VStack {
                 HStack(alignment: .top) {
-                    ProductImageView(withURL: product.thumbnail.absoluteString)
+                    ProductImageView(withURL: product.thumbnail)
                         .frame(width: 80)
                     VStack(alignment: .leading, spacing: 10) {
                         Text(product.title)

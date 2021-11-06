@@ -14,8 +14,8 @@ struct ProductImageView: View {
     @ObservedObject var imageLoader: ImageLoader
     @State var image: UIImage = UIImage()
 
-    init(withURL url:String) {
-        imageLoader = ImageLoader(urlString: url)
+    init(withURL url: URL) {
+        imageLoader = ImageLoader(url: url)
     }
 
     var body: some View {
@@ -30,6 +30,6 @@ struct ProductImageView: View {
 
 struct ProductImageView_Previews: PreviewProvider {
     static var previews: some View {
-        ProductImageView(withURL: PreviewSampleData.thumbnailURLString)
+        ProductImageView(withURL: PreviewSampleData.thumbnailURL)
     }
 }

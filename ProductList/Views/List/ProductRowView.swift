@@ -13,7 +13,7 @@ struct ProductRowView: View {
     
     var body: some View {
         HStack {
-            ProductImageView(withURL: product.thumbnail.absoluteString)
+            ProductImageView(withURL: product.thumbnail)
                 .frame(width: 50, height: 50, alignment: .center)
             VStack {
                 Text(product.title)

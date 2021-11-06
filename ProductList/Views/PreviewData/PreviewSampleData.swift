@@ -10,7 +10,7 @@ import Foundation
 /// Sample data to be used by Xcode previews
 struct PreviewSampleData {
     
-    static let thumbnailURLString = "http://http2.mlstatic.com/D_776681-MLU47932898328_102021-O.jpg"
+    static let thumbnailURL = URL(string: "http://http2.mlstatic.com/D_776681-MLU47932898328_102021-O.jpg")!
     
     private static let appleLogoURL = URL(string: "https://e7.pngegg.com/pngimages/109/296/png-clipart-apple-logo-apple-heart-logo.png")!
     private static let appleURL = URL(string: "https://apple.com")!
