@@ -57,7 +57,36 @@ class ProductInfoTests: XCTestCase {
             print(error)
         }
     }
+    
+    func test_DisplayPrice_UYU() {
+        let productInfo = ProductInfo(id: "", title: "", price: 100, currency: "UYU", condition: "", permalink: ProductInfoTestsData.dummyURL, thumbnail: ProductInfoTestsData.dummyURL)
+        XCTAssertEqual(productInfo.displayPrice, "$100")
+    }
 
+    func test_DisplayPrice_USD() {
+        let productInfo = ProductInfo(id: "", title: "", price: 100, currency: "USD", condition: "", permalink: ProductInfoTestsData.dummyURL, thumbnail: ProductInfoTestsData.dummyURL)
+        XCTAssertEqual(productInfo.displayPrice, "U$S100")
+    }
+
+    func test_DisplayPrice_EUR() {
+        let productInfo = ProductInfo(id: "", title: "", price: 100, currency: "EUR", condition: "", permalink: ProductInfoTestsData.dummyURL, thumbnail: ProductInfoTestsData.dummyURL)
+        XCTAssertEqual(productInfo.displayPrice, "EUR100")
+    }
+    
+    func test_DisplayCondition_New() {
+        let productInfo = ProductInfo(id: "", title: "", price: 0, currency: "", condition: "new", permalink: ProductInfoTestsData.dummyURL, thumbnail: ProductInfoTestsData.dummyURL)
+        XCTAssertEqual(productInfo.displayCondition, "Nuevo")
+    }
+    
+    func test_DisplayCondition_Used() {
+        let productInfo = ProductInfo(id: "", title: "", price: 0, currency: "", condition: "used", permalink: ProductInfoTestsData.dummyURL, thumbnail: ProductInfoTestsData.dummyURL)
+        XCTAssertEqual(productInfo.displayCondition, "Usado")
+    }
+    
+    func test_DisplayCondition_Other() {
+        let productInfo = ProductInfo(id: "", title: "", price: 0, currency: "", condition: "other", permalink: ProductInfoTestsData.dummyURL, thumbnail: ProductInfoTestsData.dummyURL)
+        XCTAssertEqual(productInfo.displayCondition, "other")
+    }
 }
 
 struct ProductInfoTestsData {
@@ -68,6 +97,8 @@ struct ProductInfoTestsData {
     static let product_1_condition = "used"
     static let product_1_permalink = "https://articulo.mercadolibre.com.uy/MLU-602962743-moto-g6-play-sin-tapa-trasera-libre-oferta-_JM"
     static let product_1_thumbnail = "http://http2.mlstatic.com/D_776681-MLU47932898328_102021-O.jpg"
+    
+    static let dummyURL = URL(string: "http://a.com/")!
     
     static let product_json_min = """
 {

@@ -18,8 +18,8 @@ struct ProductDetailView: View {
                     ProductImageView(withURL: product.thumbnail.absoluteString)
                         .frame(width: 80)
                     VStack(alignment: .leading, spacing: 10) {
-                        Text("Condición: \(product.condition == "used" ? "Usado" : "Nuevo")")
-                        Text("Precio: \(product.currency) \(product.price)")
+                        Text("Condición: \(product.displayCondition)")
+                        Text("Precio: \(product.displayPrice)")
                     }
                     Spacer()
                 }

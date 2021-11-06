@@ -19,9 +19,9 @@ struct ProductRowView: View {
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .font(.body)
                 HStack {
-                    Text(product.condition == "used" ? "Usado" : "Nuevo")
+                    Text(product.displayCondition)
                         .font(.caption)
-                    Text("\(product.currency) \(product.price)")
+                    Text("\(product.displayPrice)")
                         .font(.caption)
                     Spacer()
                 }

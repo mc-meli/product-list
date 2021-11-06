@@ -16,6 +16,26 @@ struct ProductInfo {
     let permalink: URL
     let thumbnail: URL
     
+    private var currencySimbol: String {
+        switch currency {
+        case "UYU": return "$"
+        case "USD": return "U$S"
+        default: return currency
+        }
+    }
+    
+    var displayPrice: String {
+        "\(currencySimbol)\(price)"
+    }
+    
+    var displayCondition: String {
+        switch condition {
+        case "new": return "Nuevo"
+        case "used": return "Usado"
+        default: return condition
+        }
+    }
+    
     init(id: String, title: String, price: Int, currency: String, condition: String, permalink: URL, thumbnail: URL) {
         self.id = id
         self.title = title
