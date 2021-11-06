@@ -7,6 +7,9 @@
 
 import SwiftUI
 
+/// This is the applications entry point
+///
+/// It allows the user to search by any text, displays search results by pushing a ProductListView
 struct ProductSearchView: View {
     @State private var searchText = ""
     @State private var readyToShowList = false

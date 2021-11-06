@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+/// Displays a product's detail page
 struct ProductDetailView: View {
     var product: ProductInfo
     

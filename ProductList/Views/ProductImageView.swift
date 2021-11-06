@@ -7,6 +7,9 @@
 
 import SwiftUI
 
+/// Displays a product's image given its URL
+/// 
+/// Downloads the image from the given URL and shows it when it's ready.
 struct ProductImageView: View {
     @ObservedObject var imageLoader: ImageLoader
     @State var image: UIImage = UIImage()

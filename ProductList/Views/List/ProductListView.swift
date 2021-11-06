@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+/// Displays a list of products obtained from a search
 struct ProductListView: View {
     var searchResults: ProductSearchResult!
     

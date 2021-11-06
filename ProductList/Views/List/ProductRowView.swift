@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+/// Displays a single product in a product list
 struct ProductRowView: View {
     var product: ProductInfo
     

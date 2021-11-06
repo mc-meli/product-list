@@ -7,6 +7,7 @@
 
 import Foundation
 
+/// Sample data to be used by Xcode previews
 struct PreviewSampleData {
     
     static let thumbnailURLString = "http://http2.mlstatic.com/D_776681-MLU47932898328_102021-O.jpg"

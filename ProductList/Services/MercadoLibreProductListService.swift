@@ -14,6 +14,7 @@ enum MercadoLibreProductListServiceError: Error {
     case couldNotCreateProductsInfoFromResponse
 }
 
+/// Service implementation for Mercado Libre
 class MercadoLibreProductListService: ProductListServiceProtocol {
     
     func searchProducts(text: String, completion: @escaping (Result<ProductSearchResult, Error>) -> ()) {
